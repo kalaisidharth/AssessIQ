@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: #050508;
+    color: #e8e8f0;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #0a0a12; }
+  ::-webkit-scrollbar-thumb { background: #b4ff3944; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #b4ff39aa; }
+}
+
+@layer components {
+  .glass {
+    background: rgba(17, 17, 32, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(180, 255, 57, 0.08);
+  }
+
+  .glass-hover {
+    @apply glass transition-all duration-300;
+  }
+  .glass-hover:hover {
+    border-color: rgba(180, 255, 57, 0.2);
+    background: rgba(17, 17, 32, 0.95);
+  }
+
+  .volt-glow {
+    box-shadow: 0 0 20px rgba(180, 255, 57, 0.15), 0 0 60px rgba(180, 255, 57, 0.05);
+  }
+
+  .volt-glow-strong {
+    box-shadow: 0 0 30px rgba(180, 255, 57, 0.3), 0 0 80px rgba(180, 255, 57, 0.1);
+  }
+
+  .btn-primary {
+    @apply bg-volt-400 text-obsidian-950 font-display font-bold px-6 py-3 rounded-lg
+           transition-all duration-200 hover:bg-volt-500 active:scale-95
+           disabled:opacity-40 disabled:cursor-not-allowed;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .btn-ghost {
+    @apply glass text-volt-400 font-display font-semibold px-6 py-3 rounded-lg
+           transition-all duration-200 hover:bg-volt-400 hover:text-obsidian-950
+           disabled:opacity-40 disabled:cursor-not-allowed;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    border: 1px solid rgba(180, 255, 57, 0.3);
+  }
+
+  .input-field {
+    @apply w-full bg-obsidian-800 border border-obsidian-600 rounded-lg px-4 py-3
+           text-white placeholder-gray-600
+           focus:outline-none focus:border-volt-400 transition-colors duration-200;
+  }
+
+  .card {
+    @apply glass rounded-2xl p-6;
+  }
+
+  .section-title {
+    @apply font-display font-extrabold text-white;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+}
+
+/* Scanline overlay effect */
+.scanlines::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Option button states */
+.option-btn {
+  @apply w-full text-left p-4 rounded-xl border transition-all duration-200 cursor-pointer;
+  border-color: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.02);
+}
+.option-btn:hover {
+  border-color: rgba(180,255,57,0.3);
+  background: rgba(180,255,57,0.05);
+}
+.option-btn.selected {
+  border-color: rgba(180,255,57,0.7);
+  background: rgba(180,255,57,0.1);
+}
+.option-btn.correct {
+  border-color: rgba(74,222,128,0.8);
+  background: rgba(74,222,128,0.1);
+}
+.option-btn.incorrect {
+  border-color: rgba(248,113,113,0.8);
+  background: rgba(248,113,113,0.1);
+}
+
+/* Progress bar */
+.progress-bar {
+  height: 4px;
+  background: rgba(180,255,57,0.15);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #b4ff39, #9ef010);
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+/* Timer warning */
+@keyframes timerPulse {
+  0%, 100% { color: #ff6b6b; }
+  50% { color: #ff4444; }
+}
+.timer-warning {
+  animation: timerPulse 1s ease-in-out infinite;
+}
+
+/* Animated gradient background */
+.bg-gradient-animated {
+  background: radial-gradient(ellipse at 20% 20%, rgba(180,255,57,0.05) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 80%, rgba(79,172,254,0.05) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, rgba(10,10,18,1) 0%, #050508 100%);
+}
+
+/* Round badge */
+.round-badge {
+  @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold;
+  background: rgba(180,255,57,0.1);
+  border: 1px solid rgba(180,255,57,0.3);
+  color: #b4ff39;
+}
+
+/* Status pills */
+.status-completed { @apply text-green-400; background: rgba(74,222,128,0.1); border-color: rgba(74,222,128,0.3); }
+.status-failed { @apply text-red-400; background: rgba(248,113,113,0.1); border-color: rgba(248,113,113,0.3); }
+.status-in_progress { @apply text-amber-400; background: rgba(251,191,36,0.1); border-color: rgba(251,191,36,0.3); }
+.status-not_started { @apply text-gray-400; background: rgba(156,163,175,0.1); border-color: rgba(156,163,175,0.3); }
